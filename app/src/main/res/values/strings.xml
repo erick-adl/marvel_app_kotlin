@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Marvel Demo</string>
+    <string name="searchbar_hint">Search your fav superhero!</string>
+    <string name="characterlist_no_results">No results found</string>
+    <string name="characterlist_error_searching">Something went wrong.</string>
+    <string name="characterdetail_label_description">Description</string>
+    <string name="characterdetail_label_comics">Comics</string>
+    <string name="characterdetail_text_comics_available">Comics available:</string>
+    <string name="characterdetail_text_comics_not_available">There are no comics available of this character</string>
+</resources>

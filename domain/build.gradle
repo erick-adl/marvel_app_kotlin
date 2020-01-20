@@ -1,0 +1,11 @@
+apply from: '../dependencies/globalDependencies.gradle'
+apply from: 'dependencies/dependencies.gradle'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
+    implementation "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

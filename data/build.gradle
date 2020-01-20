@@ -1,0 +1,59 @@
+apply from: '../dependencies/globalDependencies.gradle'
+apply from: 'dependencies/dependencies.gradle'
+apply from: '../app/buildConfig/buildVersion.gradle'
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    def globalConfiguration = project.extensions.getByName("ext")
+    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+
+    defaultConfig {
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "PublicApiKey", "\"\""
+            buildConfigField 'String', "PrivateApiKey", "\"\""
+        }
+        staging {
+            debuggable true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "PublicApiKey", "\"\""
+            buildConfigField 'String', "PrivateApiKey", "\"\""
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "PublicApiKey", "\"\""
+            buildConfigField 'String', "PrivateApiKey", "\"\""
+        }
+    }
+}
+
+dependencies {
+    api project(':domain')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    implementation "com.squareup.okhttp3:okhttp:${okHttpVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+    implementation "com.github.pwittchen:ReactiveNetwork:${reactiveNetworkVersion}"
+}
