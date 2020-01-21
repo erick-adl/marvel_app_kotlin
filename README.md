@@ -12,11 +12,11 @@
 3. Add public key and private key in build.gradle at buildConfigField from data 
 
 
-The API key can be set [as described here](https://medium.com/code-better/hiding-api-keys-from-your-android-repository-b23f5598b906)
+The API key can be set [as described here](https://developer.marvel.com/docs#!/public/getCreatorCollection_get_0)
 
 # Screenshots
 
-<img height="480px" src="https://github.com/erick-adl/marvel_app_kotlin/blob/master/screenshot/33.jpg">
+<img height="480px" src="https://github.com/erick-adl/marvel_app_kotlin/blob/master/screenshots/33.jpg">
 
 
 
