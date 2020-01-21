@@ -26,6 +26,9 @@
                 app:srcCompat="@drawable/ic_search" />
 
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:focusedByDefault="false"
                 android:id="@+id/searchText"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"

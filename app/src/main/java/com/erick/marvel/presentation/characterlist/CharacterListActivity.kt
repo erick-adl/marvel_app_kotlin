@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.characterlist_layout.*
 import kotlinx.android.synthetic.main.toolbar_search.*
 import javax.inject.Inject
 import android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE
+import com.erick.marvel.data.character.CharacterApiClient
 import com.erick.marvel.presentation.utils.*
 
 
@@ -26,6 +27,11 @@ class CharacterListActivity : BaseActivity(), CharacterListView {
     override val layoutRes: Int = R.layout.characterlist_layout
 
     private lateinit var charactersAdapter: RVRendererAdapter<CharacterUI>
+    var totalItem = 20
+    var lastScrolledItem = 0
+    var offset = 10
+
+
 
     @Presenter
     @Inject
@@ -38,6 +44,7 @@ class CharacterListActivity : BaseActivity(), CharacterListView {
         searchText.setupEditTextOnTextChangedListener(onTextChangedBlock = {
             presenter.onSearchChanged(it)
         })
+        searchText.clearFocus()
     }
 
     override fun initInjector() {
@@ -83,13 +90,31 @@ class CharacterListActivity : BaseActivity(), CharacterListView {
     }
 
     private fun setupRecyclerView() {
-        characterList.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        characterList.setHasFixedSize(true)
+        characterList.layoutManager = manager
+        characterList.setHasFixedSize(false)
         characterList.adapter = charactersAdapter
         characterList.addOnScrollListener(characterListOnScrollListener)
     }
 
+    var manager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
     private val characterListOnScrollListener = object : RecyclerView.OnScrollListener() {
+
+
+        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            lastScrolledItem = manager.findLastVisibleItemPosition()
+            if(lastScrolledItem > (totalItem - 3)){
+                print("Heey")
+                CharacterApiClient().searchForCharacter("", offset)
+                offset += 10
+                totalItem += 20
+                presenter.onSearchChanged("")
+                characterList.adapter.notifyDataSetChanged()
+            }
+
+
+        }
+
         override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if (newState == SCROLL_STATE_IDLE) {
@@ -97,6 +122,8 @@ class CharacterListActivity : BaseActivity(), CharacterListView {
             } else {
                 searchBar.slideUp()
             }
+
+
         }
     }
 }

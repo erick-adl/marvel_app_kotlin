@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 class CharacterApiClient : CharacterApi {
 
-    override fun searchForCharacter(searchText: String): Observable<SearchCharactersItems> {
+    override fun searchForCharacter(searchText: String, offset: Int): Observable<SearchCharactersItems> {
 
         val marvelApiClient = ApiClientBuilder(
                 MarvelApiClient(emptySet())
@@ -23,13 +23,15 @@ class CharacterApiClient : CharacterApi {
         val timestamp = java.lang.Long.toString(System.currentTimeMillis() / 1000)
         val hash = getHash(timestamp)
         val nameStartsWith = if (searchText == "") null else searchText
-
-        return marvelApiClient.getCharacters(
+        val r = marvelApiClient.getCharacters(
                 publicKey = publicAPIKey,
                 timestamp = timestamp,
                 hash = hash,
-                nameStartsWith = nameStartsWith
+                nameStartsWith = nameStartsWith,
+                limit = 20,
+                offset = offset
         ).map { it.toDomain(searchText) }
+        return r
     }
 }
 
@@ -38,6 +40,8 @@ interface CharactersApiDefinition {
     @GET("/v1/public/characters")
     fun getCharacters(
             @Query("apikey") publicKey: String,
+            @Query("offset") offset: Int,
+            @Query("limit") limit: Int,
             @Query("hash") hash: String,
             @Query("ts") timestamp: String,
             @Query("nameStartsWith") nameStartsWith: String?

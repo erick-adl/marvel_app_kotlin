@@ -16,8 +16,7 @@ The API key can be set [as described here](https://medium.com/code-better/hiding
 
 # Screenshots
 
-List of heroes             |  Detail view
-:-------------------------:|:-------------------------:
-![](/screenshots/characterList.png)  |  ![](/screenshots/characterDetail.png)
+<img height="480px" src="https://github.com/erick-adl/marvel_app_kotlin/blob/master/screenshot/33.jpg">
+
 
 

@@ -10,7 +10,7 @@ class SearchCharactersApiDataSource(
 ) : RxReadableDataSource<String, SearchCharactersItems> {
 
     override fun getByKey(key: String): Observable<SearchCharactersItems> =
-            characterApi.searchForCharacter(key)
+            characterApi.searchForCharacter(key, 0)
 
     override fun getAll(): Observable<List<SearchCharactersItems>> =
             Observable.empty()
