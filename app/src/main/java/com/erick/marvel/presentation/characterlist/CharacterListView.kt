@@ -25,9 +25,11 @@ data class CharacterUIComics(
         val available: Int?,
         val collectionURI: String?
 )
+    val list = mutableListOf<CharacterItemUI>()
 
 fun List<CharacterItem>.toUI(): List<CharacterItemUI> {
-    return map { it.toUI() }
+    list += map { it.toUI() }
+    return list
 }
 
 fun CharacterItem.toUI(): CharacterItemUI {

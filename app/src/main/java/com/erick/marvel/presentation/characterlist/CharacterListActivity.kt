@@ -109,7 +109,7 @@ class CharacterListActivity : BaseActivity(), CharacterListView {
                 offset += 10
                 totalItem += 20
                 presenter.onSearchChanged("")
-                characterList.adapter.notifyDataSetChanged()
+//                characterList.adapter.notifyDataSetChanged()
             }
 
 

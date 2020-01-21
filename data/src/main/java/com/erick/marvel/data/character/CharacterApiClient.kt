@@ -10,6 +10,8 @@ import com.erick.marvel.domain.character.SearchCharactersItems
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.lang.Math.random
+import java.util.*
 
 class CharacterApiClient : CharacterApi {
 
@@ -29,7 +31,7 @@ class CharacterApiClient : CharacterApi {
                 hash = hash,
                 nameStartsWith = nameStartsWith,
                 limit = 20,
-                offset = offset
+                offset =  (Math.random() * (1000 - 0) + 0).toInt()
         ).map { it.toDomain(searchText) }
         return r
     }
